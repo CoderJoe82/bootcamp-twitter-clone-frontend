@@ -1,12 +1,12 @@
 import React, {Component}from "react";
-//import Spinner from "react-spinkit";
+import Spinner from "react-spinkit";
 import { connect } from "react-redux";
 import { login, signup } from "../../redux";
-//import {Link, Redirect} from "react-router-dom"
+//import { Redirect} from "react-router-dom"
 
 class CreateUsers extends Component{
     state ={
-        userName: "",
+        username: "",
         displayName: "",
         password: ""
 
@@ -19,7 +19,7 @@ class CreateUsers extends Component{
       this.setState({ [event.target.name]: event.target.value});
   };
   render(){
-      //const {loading,error}=this.props;
+      const {loading,error}=this.props;
 
       return (
           <React.Fragment>
@@ -46,10 +46,12 @@ class CreateUsers extends Component{
             required
             onChange={this.handleChange}
             />
-            <button type="submit">
+            <button type="submit" disabled={loading}>
             Create User
           </button>
               </form>
+              {loading && <Spinner name = "circle" color = "purple" /> }
+              {error && <p style={{color: "red"}}>{error.message}</p>}
               </React.Fragment>
       )
   }

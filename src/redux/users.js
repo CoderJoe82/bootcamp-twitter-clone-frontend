@@ -14,7 +14,7 @@ const url = domain + "/users";
 const SIGNUP =  createActions("signup");
 export const signup = signupData => dispatch => {
     dispatch(SIGNUP.START());
-
+console.log(JSON.stringify(signupData))
     return fetch(url, {
         method:"POST",
         headers: jsonHeaders,
