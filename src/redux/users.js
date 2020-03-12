@@ -8,11 +8,12 @@ import {
     createActions,
     createReducer
   } from "./helpers";
+  import {login} from "./auth"
 
 const url = domain + "/users";
 
 const SIGNUP =  createActions("signup");
-export const signup = signupData => dispatch => {
+const _signup = signupData => dispatch => {
     dispatch(SIGNUP.START());
 console.log(JSON.stringify(signupData))
     return fetch(url, {
@@ -24,6 +25,9 @@ console.log(JSON.stringify(signupData))
     .then(result => dispatch(SIGNUP.SUCCESS(result)))
     .catch(err => Promise.reject(dispatch(SIGNUP.FAIL(err))));
 };
+export const signup = signupData => dispatch => {
+    dispatch(_signup(signupData)).then(()=>{dispatch(login({username:signupData.username, password:signupData.password}))})
+}
 export const reducers = {
     signup: createReducer(getInitStateFromStorage("signup", asyncInitialState), {
         ...asyncCases(SIGNUP),
