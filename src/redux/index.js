@@ -6,7 +6,7 @@ import { reducers as authReducers } from "./auth";
 import { registrationReducer } from "./registration/registration";
 
 export * from "./auth";
-
+export * from "./users";
 export const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL
 });
