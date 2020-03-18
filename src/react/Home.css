@@ -1,0 +1,63 @@
+#branches {
+  position: absolute;
+  top: 60px;
+  left: 300px;
+  width: 30%;
+}
+
+#thankyou {
+  position: absolute;
+  width: 40vw;
+  z-index: 0;
+}
+
+p {
+    margin-top: 270px;
+    text-align: center;
+    font-size: 45px;
+}
+
+body {
+  margin: 0;
+  color: white;
+}
+
+#mainContainer {
+  display: flex;
+  position: relative;
+}
+
+#leftSide {
+  position: relative;
+  width: 60%;
+  height: 100vh;
+  background-color: black;
+}
+
+#rightSide {
+  width: 40%;
+  position: relative;
+}
+
+#veticon {
+    position: absolute;
+    width: 25%;
+    top: 33%;
+    left: 38%;
+}
+
+#missionStatement {
+    position: absolute;
+    bottom: 7%;
+    left: 10%;
+    color: black;
+    font-size: 18px;
+    width: 80%;
+}
+
+#missionTitle {
+    position: absolute;
+    color: black;
+    bottom: 31%;
+    left: 21%;
+}

@@ -1,24 +1,28 @@
-#logbutton {
+#newuserbutton {
   background-color: blue;
   color: white;
 }
 
-#login-div {
+#register-div {
   background-color: rgb(255, 255, 255, 0.8);
   width: 25%;
   position: absolute;
   bottom: 75px;
-  left: 150px;
+  right: 150px;
   height: 40%;
 }
 
-#login-form {
+#signup-form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-#logbutton {
+#newuserbutton {
   display: block;
   margin: 0 auto;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
 }
