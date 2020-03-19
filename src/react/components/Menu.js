@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./Menu.css";
 import { connect } from "react-redux";
 import { logout } from "../../redux";
+import Button from "@material-ui/core/Button";
 
 class Menu extends React.Component {
   handleLogout = event => {
@@ -14,11 +15,16 @@ class Menu extends React.Component {
     return (
       <div id="menu">
         <h1 id = "title">Coding for Veterans</h1>
+        <img
+              id="menuVetIcon"
+              src={process.env.PUBLIC_URL + "/images/vetdayicon.png"}
+              alt="veticon"
+            />
         {this.props.isAuthenticated && (
           <div id="menu-links">
-            <Link to="/messagefeed">Message Feed</Link>
+            <Link id = "messageFeed" to="/messagefeed">Message Feed</Link>
             <Link to="/" onClick={this.handleLogout}>
-              <button>Logout</button>
+              <Button style = {{backgroundColor: "white", color: "#09440e", fontWeight: "bold"}}>Logout</Button>
             </Link>
           </div>
         )}

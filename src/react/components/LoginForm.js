@@ -2,7 +2,6 @@ import React from "react";
 import Spinner from "react-spinkit";
 import { connect } from "react-redux";
 import { login } from "../../redux";
-import { Link} from "react-router-dom";
 import "./LoginForm.css";
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
