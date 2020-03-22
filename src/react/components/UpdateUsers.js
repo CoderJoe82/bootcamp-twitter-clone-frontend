@@ -3,46 +3,51 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
-import TextField from '@material-ui/core/TextField'
-const useStyles = makeStyles({
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import {connect} from "react-redux";
+import {updateuser} from "../../redux"
+
+
+  class UpdateUsers extends React.Component {
+      state= {
+          password: "",
+          displayName: "",
+          about: ""
+      }
+      handleSubmit = event => {
+          this.props.updateuser(this.state)
+      }
+      handleChange = event => {
+          this.setState({ [event.target.name]: event.target.value })
+      }
+      render (){
+
+    const classes = makeStyles({
     root: {
       maxWidth: 345,
     },
   });
-  export default function UserCard(props) {
-    const classes = useStyles();
-    let hasImage = false;
-    //let hasBio = false;
-    let defaultBio = "No about info setup"
-    if (props.pictureLocation !== null)  hasImage=true;
-    // if (props.about !== "") {
-    //   defaultBio = props.about
-    // };
+    
     return (
       <Card className={classes.root}>
         <CardActionArea>
-          <CardMedia
-            component="img"
-            alt="User Image"
-            height="260"
-            image={hasImage ? `${props.pictureLocation }` : "https://pngimage.net/wp-content/uploads/2018/05/default-user-png-2.png"}
-            title="Profile Picture"
-          />
+          
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
                 <form id= "update-user" onSubmit = {this.handleSubmit}>
-                    <TextField required id = "displayName" label = "Display Name" variant= "outlined" defaultValue={props.displayName}/>
-                    <TextField id = "aboutInfo" label = "About me " variant = "outlined" defaultValue = {props.about} />
+                    <TextField required id = "displayName" label = "Display Name" variant= "outlined" name = "displayName" defaultValue={this.props.displayName} onChange ={this.handleChange}/>
+                    <TextField id = "aboutInfo" label = "About me " variant = "outlined" name = "about" defaultValue = {this.props.about} onChange ={this.handleChange}/>
+                    <TextField id = "password" label = "password" name = "password" variant = "outlined" onChange ={this.handleChange}/>
                 </form>
             </Typography>
             
           </CardContent>  
           </CardActionArea>
           <CardActions>
-              <Button size = "large" color = "primary">
+              <Button size = "large" color = "primary" onClick = {this.handleSubmit}>
                   Update Profile
               </Button>
         
@@ -50,3 +55,12 @@ const useStyles = makeStyles({
           </Card>
   );
 }
+  }
+  export default connect (
+      state => ({
+          result: state.users.updateuser.result,
+          loading: state.users.updateuser.loading,
+          error: state.users.updateuser.error
+      }),
+      { updateuser }) (UpdateUsers)
+  

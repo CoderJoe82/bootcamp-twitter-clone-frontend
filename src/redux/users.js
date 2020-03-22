@@ -46,19 +46,20 @@ export const getuser = username => (dispatch, getState )=> {
 };
 
 const UPDATEUSER = createActions("updateuser");
-export const updateuser = (username, userData) => (dispatch, getState) => {
+export const updateuser = userData => (dispatch, getState) => {
     dispatch(UPDATEUSER.START());
     const token = getState().auth.login.result.token
+    const username = getState().auth.login.result.username 
     return fetch (url + `/${username}`, {
         method: "PATCH", 
-        headers: {Authorization: "Bearer-" + token, ...jsonHeaders},
+        headers: {Authorization: "Bearer " + token, ...jsonHeaders},
         body: JSON.stringify(userData)
 
     })
     .then(handleJsonResponse)
     .then (result =>{
         dispatch(UPDATEUSER.SUCCESS(result))
-        dispatch(login({username:username, password:userData.passowrd}))
+        dispatch(getuser(username))
     })
     .catch (err => Promise.reject (dispatch(UPDATEUSER.FAIL(err))));
 };
