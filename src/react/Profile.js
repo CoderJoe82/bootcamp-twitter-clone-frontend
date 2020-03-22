@@ -2,76 +2,48 @@ import React from "react";
 import { Menu } from "./components";
 import { userIsAuthenticated } from "./HOCs";
 import './profile.css'
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography';
+//import Avatar from "@material-ui/core/Avatar";
+//import Button from "@material-ui/core/Button";
+//import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+//import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+//import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+//import Typography from '@material-ui/core/Typography';
+import {getuser} from "../redux";
+import {connect} from "react-redux"
+import UserCard from "./components/UserCard";
 
 
 class Profile extends React.Component {
-
+componentDidMount (){
+  console.log(this.props.match.params.username)
+  this.props.getuser(this.props.match.params.username);
+};
   render() {
+    // const {result } =this.props
+    if(this.props.result === null){
+      return(<div></div>)
+    }
     return (
       <React.Fragment>
         <Menu isAuthenticated={this.props.isAuthenticated} />
         <div id = "mainHolder">
-          <div id = "avatarButton">
-            <Avatar style = {{width: "150px", height: "150px"}} alt="Remy Sharp" src="https://pbs.twimg.com/profile_images/582982048744280064/ii5AYsnO.jpg" />
-            <Button style = {{marginTop: '5px'}}>Edit Image</Button>
-          </div>
-        </div>
-        <div id = "expansionDiv">
-        <ExpansionPanel>
-          <ExpansionPanelSummary>
-            About Me:
+          <UserCard
+            username = {this.props.result.user.username}
+            displayName = {this.props.result.user.displayName}
+            pictureLocation = {this.props.result.user.pictureLocation}
+            bio = {this.props.result.user.about}
+            />
             
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.<br/>
-            <Button style = {{marginTop: "15px"}}>
-              Edit
-              </Button>
-          </Typography>
-        </ExpansionPanelDetails>
-          </ExpansionPanel>
-          <ExpansionPanel>
-          <ExpansionPanelSummary>
-            Languages Known:
-            
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.<br/>
-            <Button style = {{marginTop: "15px"}}>
-              Edit
-              </Button>
-          </Typography>
-        </ExpansionPanelDetails>
-          </ExpansionPanel>
-          <ExpansionPanel>
-          <ExpansionPanelSummary>
-            Languages I want to know:
-            
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.<br/>
-            <Button style = {{marginTop: "15px"}}>
-              Edit
-              </Button>
-          </Typography>
-        </ExpansionPanelDetails>
-          </ExpansionPanel>
           </div>
       </React.Fragment>
     );
   }
 }
 
-export default userIsAuthenticated(Profile);
+export default  connect (
+  state =>({
+    result: state.users.getuser.result, 
+    loading: state.users.getuser.loading, 
+    error: state.users.getuser.error
+  }),
+  {getuser})(userIsAuthenticated(Profile));

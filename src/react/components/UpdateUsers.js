@@ -12,5 +12,8 @@ class UpdateUsers extends Component {
         password: ""
 
     };
+    handleUpdate = event =>{
+        event.
+    }
 
 }

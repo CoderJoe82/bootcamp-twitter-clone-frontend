@@ -30,11 +30,18 @@ export const signup = signupData => dispatch => {
     dispatch(_signup(signupData)).then(()=>{dispatch(login({username:signupData.username, password:signupData.password}))})
 }
 const GETUSER = createActions("getuser");
-export const getuser = username => dispatch => {
+export const getuser = username => (dispatch, getState )=> {
     dispatch(GETUSER.START());
+    console.log("insideAction username = " + username)
+    if(username==="" || username === null){
+        username = getState().auth.login.result.username
+    }
     return fetch (url + `/${username}`)
     .then(handleJsonResponse)
-    .then (result => dispatch(GETUSER.SUCCESS(result)))
+    .then (result => {
+        dispatch(GETUSER.SUCCESS(result))
+        console.log(result)
+    })
     .catch (err => Promise.reject(dispatch(GETUSER.FAIL(err))));
 };
 
