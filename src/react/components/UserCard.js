@@ -22,33 +22,7 @@ const useStyles = makeStyles({
     //   defaultBio = props.about
     // };
     return (
-      <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            alt="User Image"
-            height="260"
-            image={hasImage ? `${props.pictureLocation }` : "https://pngimage.net/wp-content/uploads/2018/05/default-user-png-2.png"}
-            title="Profile Picture"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {props.displayName} 
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {defaultBio}
-            </Typography>
-          </CardContent>  
-          </CardActionArea>
-          <CardActions>
-        <Button size="small" color="primary" >
-          Edit Profile
-        </Button>
-        <Button size="small" color="primary" >
-          Delete User
-        </Button>
-      </CardActions>
-          </Card>
+      
   );
 }
 

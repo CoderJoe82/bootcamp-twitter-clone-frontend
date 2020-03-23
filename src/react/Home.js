@@ -3,7 +3,6 @@ import { LoginForm } from "./components";
 import { userIsNotAuthenticated } from "./HOCs";
 import NewKidsOnTheBlock from "./components/registration/registration";
 import "./Home.css";
-
 class Home extends React.Component {
   render() {
     return (

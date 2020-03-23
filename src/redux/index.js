@@ -4,6 +4,7 @@ import { combineReducers } from "redux";
 import { connectRouter } from "connected-react-router";
 import { reducers as authReducers } from "./auth";
 import { registrationReducer } from "./registration/registration";
+import { UserReducer } from "./ProfilePage/UserInfo";
 
 export * from "./auth";
 export * from "./users";
@@ -15,7 +16,8 @@ export const store = configureStore({
   reducer: {
     router: connectRouter(history),
     auth: combineReducers(authReducers),
-    registration: combineReducers(registrationReducer)
+    registration: combineReducers(registrationReducer),
+    user: combineReducers(UserReducer)
   },
   preloadedState: {},
   devTools: process.env.NODE_ENV !== "production"
