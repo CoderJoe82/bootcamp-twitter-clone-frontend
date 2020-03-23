@@ -8,9 +8,22 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
+import './profile.css'
+import {getuser} from "../redux";
+import {connect} from "react-redux"
+import UserCard from "./components/UserCard";
+
 
 class Profile extends React.Component {
+componentDidMount (){
+  console.log(this.props.match.params.username)
+  this.props.getuser(this.props.match.params.username);
+};
   render() {
+    // const {result } =this.props
+    if(this.props.result === null){
+      return(<div></div>)
+    }
     return (
       <React.Fragment>
         <Menu isAuthenticated={this.props.isAuthenticated} />
@@ -64,9 +77,24 @@ class Profile extends React.Component {
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </div>
+        <div id = "mainHolder">
+          <UserCard
+            username = {this.props.result.user.username}
+            displayName = {this.props.result.user.displayName}
+            pictureLocation = {this.props.result.user.pictureLocation}
+            bio = {this.props.result.user.about}
+            />
+            
+          </div>
       </React.Fragment>
     );
   }
 }
 
-export default userIsAuthenticated(Profile);
+export default  connect (
+  state =>({
+    result: state.users.getuser.result, 
+    loading: state.users.getuser.loading, 
+    error: state.users.getuser.error
+  }),
+  {getuser})(userIsAuthenticated(Profile));

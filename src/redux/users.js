@@ -30,28 +30,36 @@ export const signup = signupData => dispatch => {
     dispatch(_signup(signupData)).then(()=>{dispatch(login({username:signupData.username, password:signupData.password}))})
 }
 const GETUSER = createActions("getuser");
-export const getuser = username => dispatch => {
+export const getuser = username => (dispatch, getState )=> {
     dispatch(GETUSER.START());
+    console.log("insideAction username = " + username)
+    if(username==="" || username === null){
+        username = getState().auth.login.result.username
+    }
     return fetch (url + `/${username}`)
     .then(handleJsonResponse)
-    .then (result => dispatch(GETUSER.SUCCESS(result)))
+    .then (result => {
+        dispatch(GETUSER.SUCCESS(result))
+        console.log(result)
+    })
     .catch (err => Promise.reject(dispatch(GETUSER.FAIL(err))));
 };
 
 const UPDATEUSER = createActions("updateuser");
-export const updateuser = (username, userData) => (dispatch, getState) => {
+export const updateuser = userData => (dispatch, getState) => {
     dispatch(UPDATEUSER.START());
     const token = getState().auth.login.result.token
+    const username = getState().auth.login.result.username 
     return fetch (url + `/${username}`, {
         method: "PATCH", 
-        headers: {Authorization: "Bearer-" + token, ...jsonHeaders},
+        headers: {Authorization: "Bearer " + token, ...jsonHeaders},
         body: JSON.stringify(userData)
 
     })
     .then(handleJsonResponse)
     .then (result =>{
         dispatch(UPDATEUSER.SUCCESS(result))
-        dispatch(login({username:username, password:userData.passowrd}))
+        dispatch(getuser(username))
     })
     .catch (err => Promise.reject (dispatch(UPDATEUSER.FAIL(err))));
 };
