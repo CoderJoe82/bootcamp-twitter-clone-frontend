@@ -2,7 +2,6 @@ import React from "react";
 import { Menu } from "./components";
 import { userIsAuthenticated } from "./HOCs";
 import "./profile.css";
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -27,16 +26,6 @@ componentDidMount (){
     return (
       <React.Fragment>
         <Menu isAuthenticated={this.props.isAuthenticated} />
-        <div id="mainHolder">
-          <div id="avatarButton">
-            <Avatar
-              style={{ width: "150px", height: "150px" }}
-              alt="Remy Sharp"
-              src="https://pbs.twimg.com/profile_images/582982048744280064/ii5AYsnO.jpg"
-            />
-            <Button style={{ marginTop: "5px" }}>Edit Image</Button>
-          </div>
-        </div>
         <div id="expansionDiv">
           <ExpansionPanel style={{ marginBottom: "5%", backgroundImage: `url(${process.env.PUBLIC_URL + "/images/aboutMeBanner.jpg"})`, backgroundSize: "cover" }}>
             <ExpansionPanelSummary style = {{height: "125px"}}/>

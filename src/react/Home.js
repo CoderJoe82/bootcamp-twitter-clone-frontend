@@ -3,12 +3,17 @@ import { LoginForm } from "./components";
 import { userIsNotAuthenticated } from "./HOCs";
 import NewKidsOnTheBlock from "./components/registration/registration";
 import "./Home.css";
+import {messagefeed} from "../redux/messages"
+import {connect} from "react-redux";
 class Home extends React.Component {
+  componentDidMount() {
+    this.props.messagefeed()
+  }
   render() {
     return (
       <React.Fragment>
         <div id="mainContainer">
-          <div id="leftSide">
+          <div id="leftSide"> 
             <img
               id="branches"
               src={process.env.PUBLIC_URL + "/images/Branches.png"}
@@ -41,4 +46,4 @@ class Home extends React.Component {
   }
 }
 
-export default userIsNotAuthenticated(Home);
+export default connect(null, {messagefeed})(userIsNotAuthenticated(Home));

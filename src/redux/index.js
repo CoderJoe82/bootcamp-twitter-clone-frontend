@@ -5,7 +5,7 @@ import { connectRouter } from "connected-react-router";
 import { reducers as authReducers } from "./auth";
 import { reducers as usersReducers } from "./users"
 import { registrationReducer } from "./registration/registration";
-import { usersReducers } from "./ProfilePage/UserInfo";
+import { messageFeedReducers} from "./messages"
 
 export * from "./auth";
 export * from "./users";
@@ -18,7 +18,8 @@ export const store = configureStore({
     router: connectRouter(history),
     auth: combineReducers(authReducers),
     registration: combineReducers(registrationReducer),
-    users: combineReducers(usersReducers)
+    users: combineReducers(usersReducers),
+    messagefeed: combineReducers(messageFeedReducers)
   },
   preloadedState: {},
   devTools: process.env.NODE_ENV !== "production"

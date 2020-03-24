@@ -3,13 +3,17 @@
   color: white;
 }
 
+#gButtonHolder {
+  margin-left: 6px;
+}
+
 #login-div {
   background-color: rgb(255, 255, 255, 0.8);
-  width: 25%;
+  width: 28%;
   position: absolute;
-  bottom: 75px;
+  bottom: 35px;
   left: 150px;
-  height: 40%;
+  height: 48%;
 }
 
 #login-form {
@@ -22,3 +26,4 @@
   display: block;
   margin: 0 auto;
 }
+

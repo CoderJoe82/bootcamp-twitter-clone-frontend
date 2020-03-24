@@ -1,6 +1,6 @@
 #branches {
   position: absolute;
-  top: 60px;
+  top: 30px;
   left: 300px;
   width: 30%;
 }
@@ -12,7 +12,7 @@
 }
 
 p {
-    margin-top: 270px;
+    margin-top: 240px;
     text-align: center;
     font-size: 45px;
 }

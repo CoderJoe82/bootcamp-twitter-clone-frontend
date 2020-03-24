@@ -24,7 +24,7 @@ import {
       method: "POST",
       headers: jsonHeaders,
       body: JSON.stringify(loginData)
-    })
+    })  
       .then(handleJsonResponse)
       .then(result => {
         console.log(result)

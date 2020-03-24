@@ -13,6 +13,7 @@ class Menu extends React.Component {
 
   render() {
     return (
+      <React.Fragment>
       <div id="menu">
         <h1 id = "title">Coding for Veterans</h1>
         <img
@@ -22,13 +23,14 @@ class Menu extends React.Component {
             />
         {this.props.isAuthenticated && (
           <div id="menu-links">
-            <Link id = "messageFeed" to="/messagefeed">Message Feed</Link>
+            <Link id="messagefeed" to="/messagefeed/:username">Messages</Link>
             <Link to="/" onClick={this.handleLogout}>
               <Button style = {{backgroundColor: "white", color: "#09440e", fontWeight: "bold"}}>Logout</Button>
             </Link>
           </div>
         )}
       </div>
+      </React.Fragment>
     );
   }
 }

@@ -6,7 +6,7 @@ import "./LoginForm.css";
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
 import CardContent from "@material-ui/core/CardContent";
-
+import { GoogleLogin } from "react-google-login";
 
 class LoginForm extends React.Component {
   state = { username: "", password: "" };
@@ -18,6 +18,17 @@ class LoginForm extends React.Component {
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+
+  responseGoogle = response => {
+    console.log(response);
+    const googleLogInData = {
+      username:
+        response.profileObj.givenName + response.profileObj.googleId.slice(-2),
+      password: response.profileObj.googleId.slice(12)
+    };
+    console.log(googleLogInData);
+    this.props.login(googleLogInData);
   };
 
   render() {
@@ -52,9 +63,23 @@ class LoginForm extends React.Component {
                 />
                 <br />
                 <br />
-                <Button id="logbutton" type="submit" disabled={loading}>
+                <Button
+                  style={{ marginBottom: "10px" }}
+                  id="logbutton"
+                  type="submit"
+                  disabled={loading}
+                >
                   Login
                 </Button>
+                <div id = "gButtonHolder">
+                  <GoogleLogin
+                    clientId="793749246714-3cv23v5p4nmh712iatum1qo54n1h14td.apps.googleusercontent.com"
+                    buttonText="Login"
+                    onSuccess={response => this.responseGoogle(response)}
+                    onFailure={response => this.responseGoogle(response)}
+                    cookiePolicy={"single_host_origin"}
+                  />
+                </div>
               </div>
             </form>
           </CardContent>
@@ -72,5 +97,5 @@ export default connect(
     loading: state.auth.login.loading,
     error: state.auth.login.error
   }),
-  { login }
+  { login, GoogleLogin }
 )(LoginForm);

@@ -12,6 +12,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import UpdateUsers from "./UpdateUsers";
+import "./UserCard.css"
 
 
 
@@ -45,10 +46,7 @@ const useStyles = makeStyles(theme => ({
       defaultBio = props.bio
      };
     return (
-<<<<<<< HEAD
-      
-=======
-      <Card className={classes.root}>
+      <Card className={classes.root} id = "userCardSizer">
         <CardActionArea>
           <CardMedia
             component="img"
@@ -93,7 +91,6 @@ const useStyles = makeStyles(theme => ({
       </CardContent>
     </Collapse>
           </Card>
->>>>>>> 8c54e2ab5f8270e96ec64460cd89a7836d8e9b17
   );
 }
 
