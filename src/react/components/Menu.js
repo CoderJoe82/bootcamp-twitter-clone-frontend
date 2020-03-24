@@ -14,22 +14,53 @@ class Menu extends React.Component {
   render() {
     return (
       <React.Fragment>
-      <div id="menu">
-        <h1 id = "title">Coding for Veterans</h1>
-        <img
-              id="menuVetIcon"
-              src={process.env.PUBLIC_URL + "/images/vetdayicon.png"}
-              alt="veticon"
-            />
-        {this.props.isAuthenticated && (
-          <div id="menu-links">
-            <Link id="messagefeed" to="/messagefeed/:username">Messages</Link>
-            <Link to="/" onClick={this.handleLogout}>
-              <Button style = {{backgroundColor: "white", color: "#09440e", fontWeight: "bold"}}>Logout</Button>
-            </Link>
-          </div>
-        )}
-      </div>
+        <div id="menu">
+          <h1 id="title">Coding for Veterans</h1>
+          <img
+            id="menuVetIcon"
+            src={process.env.PUBLIC_URL + "/images/vetdayicon.png"}
+            alt="veticon"
+          />
+          {this.props.isAuthenticated && (
+            <div id="menu-links">
+              <div id="messageLink">
+                <Link id="profileButton" to="/profiles/:username">
+                  <Button
+                    style={{
+                      backgroundColor: "white",
+                      color: "#09440e",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    Profile
+                  </Button>
+                </Link>
+                <Link id="messagefeed" to="/messagefeed/:username">
+                  <Button
+                    style={{
+                      backgroundColor: "white",
+                      color: "#09440e",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    Messages
+                  </Button>
+                </Link>
+              </div>
+              <Link to="/" onClick={this.handleLogout}>
+                <Button
+                  style={{
+                    backgroundColor: "white",
+                    color: "#09440e",
+                    fontWeight: "bold"
+                  }}
+                >
+                  Logout
+                </Button>
+              </Link>
+            </div>
+          )}
+        </div>
       </React.Fragment>
     );
   }
