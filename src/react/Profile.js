@@ -12,7 +12,6 @@ import {getuser} from "../redux";
 import {connect} from "react-redux"
 import UserCard from "./components/UserCard";
 import { google } from "../redux/googlelogcheck"
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 
 
 class Profile extends React.Component {
