@@ -11,18 +11,15 @@ import './profile.css'
 import {getuser} from "../redux";
 import {connect} from "react-redux"
 import UserCard from "./components/UserCard";
-import {deleteuser} from "../redux";
 import { google } from "../redux/googlelogcheck"
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 
 
 class Profile extends React.Component {
+  
 componentDidMount (){
   this.props.getuser(this.props.match.params.username);
 };
-
-handleDeleteUser = () => {
-  this.props.deleteuser();
-}
   render() {
     if(this.props.result === null){
       return(<div></div>)
@@ -73,7 +70,6 @@ handleDeleteUser = () => {
             displayName = {this.props.result.user.displayName}
             pictureLocation = {this.props.result.user.pictureLocation}
             bio = {this.props.result.user.about}
-            deleteuser = {this.handleDeleteUser}
             googlePassword = {this.props.google}
             />
             
@@ -90,7 +86,4 @@ export default  connect (
     error: state.users.getuser.error,
     google: state.googlecheck.google.result
   }),
-  {getuser, deleteuser, google})(userIsAuthenticated(Profile));
-   
-  
-  
+  {getuser, google})(userIsAuthenticated(Profile));
