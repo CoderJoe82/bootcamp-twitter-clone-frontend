@@ -9,7 +9,6 @@
     "@material-ui/icons": "^4.9.1",
     "@reduxjs/toolkit": "^1.2.5",
     "antd": "^4.0.3",
-    "axios": "^0.19.2",
     "connected-react-router": "^6.5.2",
     "google": "^2.1.0",
     "history": "^4.10.1",
