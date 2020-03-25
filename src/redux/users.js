@@ -84,6 +84,21 @@ export const deleteuser = () => (dispatch, getState)=> {
     .catch (err => Promise.reject (dispatch(DELETEUSER.FAIL(err))))
 };
 
+const GETUSERLIST = createActions("getuserlist");
+export const getuserlist =()=>(dispatch,getState)=>{
+    dispatch(GETUSERLIST.START());
+    return fetch(url + `?limit=200&offset=0`)
+    .then (handleJsonResponse)
+    .then(result =>{
+        result=Object.keys(result.users).map(key=>result.users[key])
+        dispatch({
+            type: GETUSERLIST.SUCCESS,
+            payload: result
+        })
+    })
+    .catch(err => Promise.reject(dispatch(GETUSERLIST.FAIL(err.toString()))))
+};
+
 
 
 
@@ -101,5 +116,8 @@ export const reducers = {
     }),
     deleteuser: createReducer(getInitStateFromStorage("deleteuser",asyncInitialState),{
         ...asyncCases(DELETEUSER)
+    }),
+    getuserlist: createReducer(getInitStateFromStorage("getuserlist", asyncInitialState),{
+        ...asyncCases(GETUSERLIST)
     })
 };

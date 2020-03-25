@@ -11,12 +11,14 @@ import './profile.css'
 import {getuser} from "../redux";
 import {connect} from "react-redux"
 import UserCard from "./components/UserCard";
-import {deleteuser} from "../redux";
+import GetUserList from "./components/GetUserList";
+
 import { google } from "../redux/googlelogcheck"
 
 
 class Profile extends React.Component {
 componentDidMount (){
+  console.log(this.props.match.params.username)
   this.props.getuser(this.props.match.params.username);
 };
 
@@ -73,9 +75,9 @@ handleDeleteUser = () => {
             displayName = {this.props.result.user.displayName}
             pictureLocation = {this.props.result.user.pictureLocation}
             bio = {this.props.result.user.about}
-            deleteuser = {this.handleDeleteUser}
             googlePassword = {this.props.google}
             />
+            <GetUserList/>
             
           </div>
       </React.Fragment>
@@ -90,7 +92,7 @@ export default  connect (
     error: state.users.getuser.error,
     google: state.googlecheck.google.result
   }),
-  {getuser, deleteuser, google})(userIsAuthenticated(Profile));
+  {getuser, google})(userIsAuthenticated(Profile));
    
   
   
