@@ -17,14 +17,11 @@ import { google } from "../redux/googlelogcheck"
 
 
 class Profile extends React.Component {
+  
 componentDidMount (){
   console.log(this.props.match.params.username)
   this.props.getuser(this.props.match.params.username);
 };
-
-handleDeleteUser = () => {
-  this.props.deleteuser();
-}
   render() {
     if(this.props.result === null){
       return(<div></div>)

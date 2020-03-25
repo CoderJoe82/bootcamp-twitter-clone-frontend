@@ -10,7 +10,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import UpdateUsers from "./UpdateUsers";
-//import DeleteUsers from "./DeleteUsers";
+
 import "./UserCard.css"
 import {deleteuser} from "../../redux";
 
@@ -114,8 +114,7 @@ handleUploadPhoto = (event) => {
           <ExpandMoreIcon />
         </IconButton>
         <Button size = "small" color ="primary" onClick = {this.handleClickOpen}>
-        
-          Delete User
+                  Delete User
         </Button>
         <Dialog
           open={this.state.open}
@@ -145,6 +144,7 @@ handleUploadPhoto = (event) => {
         <Button onClick = {this.handleToggleModal}>
             Upload Photo
           </Button>
+          
         <Modal style = {{backgroundColor: "white"}}open = {this.state.photomodal}>
           <div>
           <Button onClick = {this.handleUploadPhoto}>
@@ -161,7 +161,7 @@ handleUploadPhoto = (event) => {
             </div>
             
           </Modal>
-      </CardActions>
+          </CardActions>
       <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
       <CardContent>
         <UpdateUsers 
