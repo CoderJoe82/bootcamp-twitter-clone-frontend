@@ -12,7 +12,14 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import UpdateUsers from "./UpdateUsers";
+//import DeleteUsers from "./DeleteUsers";
 import "./UserCard.css"
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 
 
@@ -35,9 +42,21 @@ const useStyles = makeStyles(theme => ({
   export default function UserCard(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = event => {
+    if (event.currentTarget.id === "btnYes") {
+      props.deleteuser()
+    }
+    setOpen(false);
+  };
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  
     let hasImage = false;
     //let hasBio = false;
     let defaultBio = "No about info setup"
@@ -76,9 +95,33 @@ const useStyles = makeStyles(theme => ({
         >
           <ExpandMoreIcon />
         </IconButton>
-        <Button size = "small" color ="primary">
+        <Button size = "small" color ="primary" onClick = {handleClickOpen}>
           Delete User
         </Button>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Delete user account?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              You are about to delete {props.username} account. Are you sure you
+              want to do this?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary" autoFocus id="btnNo">
+              No
+            </Button>
+            <Button onClick={handleClose} color="primary"  id="btnYes">
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
       <CardContent>

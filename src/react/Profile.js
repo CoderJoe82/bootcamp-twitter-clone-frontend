@@ -11,6 +11,7 @@ import './profile.css'
 import {getuser} from "../redux";
 import {connect} from "react-redux"
 import UserCard from "./components/UserCard";
+import {deleteuser} from "../redux";
 
 
 class Profile extends React.Component {
@@ -18,6 +19,10 @@ componentDidMount (){
   console.log(this.props.match.params.username)
   this.props.getuser(this.props.match.params.username);
 };
+
+handleDeleteUser = () => {
+  this.props.deleteuser();
+}
   render() {
     // const {result } =this.props
     if(this.props.result === null){
@@ -72,6 +77,7 @@ componentDidMount (){
             displayName = {this.props.result.user.displayName}
             pictureLocation = {this.props.result.user.pictureLocation}
             bio = {this.props.result.user.about}
+            deleteuser = {this.handleDeleteUser}
             />
             
           </div>
@@ -86,4 +92,6 @@ export default  connect (
     loading: state.users.getuser.loading, 
     error: state.users.getuser.error
   }),
-  {getuser})(userIsAuthenticated(Profile));
+  {getuser, deleteuser})(userIsAuthenticated(Profile));
+   
+  
