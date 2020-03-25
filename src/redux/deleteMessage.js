@@ -31,7 +31,7 @@ import {
   }
   
   
-  export const deleteMessagereducers = {
+  export const deleteMessageReducers = {
      deleteMessage: createReducer(getInitStateFromStorage("deleteMessage", asyncInitialState),
        { ...asyncCases(DELETEMESSAGE) }), 
       

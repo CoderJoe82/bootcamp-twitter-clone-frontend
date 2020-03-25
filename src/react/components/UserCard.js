@@ -13,45 +13,80 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import UpdateUsers from "./UpdateUsers";
 import "./UserCard.css";
+import Modal from "@material-ui/core/Modal"
+import { newProfilePhoto } from "../../redux/newProfilePhoto"
+import { connect } from "react-redux"
+import { domain } from "../../redux/helpers"
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    maxWidth: 345,
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: '2',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortes
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-}));
+// const useStyles = makeStyles(theme => ({
+//   root: {
+//     maxWidth: 345,
+//   },
+//   expand: {
+//     transform: 'rotate(0deg)',
+//     marginLeft: '2',
+//     transition: theme.transitions.create('transform', {
+//       duration: theme.transitions.duration.shortes
+//     }),
+//   },
+//   expandOpen: {
+//     transform: 'rotate(180deg)',
+//   },
+// }));
 
-  export default function UserCard(props) {
-    const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+
+class UserCard extends React.Component {
+state = {
+  expanded: false,
+  photomodal: false,
+  file: "",
+}
+
+
+handleExpandClick = () => {
+  const newState = !this.state.expanded
+    this.setState({expanded: newState})
   };
-    let hasImage = false;
-    //let hasBio = false;
-    if (props.pictureLocation !== null)  hasImage=true;
+handleToggleModal = () => {
+  const newState = !this.state.photomodal
+    this.setState({photomodal: newState})
+  }
+handleGetPhoto = (event) => {
+  const newState = event.target.files[0]
+  this.setState({file: newState})
+}
+handleUploadPhoto = (event) => {
+  const data = new FormData()
+  data.append("picture",this.state.file)
+  console.log(this.state)
+  console.log(data)
+  this.props.newProfilePhoto(event, data)
+  this.handleToggleModal()
+}
+    render() {
     return (
-      <Card className={classes.root} id = "userCardSizer">
+      <Card id = "userCardSizer">
         <CardActionArea>
+          {this.props.pictureLocation === null && 
           <CardMedia
             component="img"
             alt="User Image"
             height="260"
-            image={hasImage ? `${props.pictureLocation }` : "https://pngimage.net/wp-content/uploads/2018/05/default-user-png-2.png"}
+            image="https://pngimage.net/wp-content/uploads/2018/05/default-user-png-2.png"
             title="Profile Picture"
-          />
+          />}
+
+{this.props.pictureLocation !== null && 
+          <CardMedia
+            component="img"
+            alt="User Image"
+            height="260"
+            image={domain + this.props.pictureLocation}
+            title="Profile Picture"
+          />}
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {props.displayName} 
+              {this.props.displayName} 
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               
@@ -61,11 +96,11 @@ const useStyles = makeStyles(theme => ({
           <CardActions>
 
           Edit Profile<IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
+          // className={clsx(classes.expand, {
+          //   [classes.expandOpen]: expanded,
+          // })}
+          onClick={this.handleExpandClick}
+          aria-expanded={this.state.expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
@@ -74,22 +109,44 @@ const useStyles = makeStyles(theme => ({
         >
           Delete User
         </Button>
+        <Button onClick = {this.handleToggleModal}>
+            Upload Photo
+          </Button>
+        <Modal style = {{backgroundColor: "white"}}open = {this.state.photomodal}>
+          <div>
+          <Button onClick = {this.handleUploadPhoto}>
+            Upload Photo
+            </Button>
+            
+          <form>
+            <input type = "file" name = "photo" onChange = {this.handleGetPhoto}>
+            </input>
+            </form>
+            <Button onClick = {this.handleToggleModal}>    
+              Cancel
+              </Button>
+            </div>
+            
+          </Modal>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
       <CardContent>
         <UpdateUsers 
-          username = {props.username}
-          displayName = {props.displayName}
-          about = {props.bio}
-          password = {props.password}
-          googlePassword = {props.googlePassword}
+          username = {this.props.username}
+          displayName = {this.props.displayName}
+          about = {this.props.bio}
+          password = {this.props.password}
+          googlePassword = {this.props.googlePassword}
         />
       </CardContent>
     </Collapse>
           </Card>
   );
+            
+}
 }
 
+export default connect(null, {newProfilePhoto})(UserCard)
 
 
 
