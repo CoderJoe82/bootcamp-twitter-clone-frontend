@@ -9,8 +9,13 @@ import { messagefeed } from "../../redux/messages";
 import { login } from "../../redux/auth";
 import Button from "@material-ui/core/Button";
 import { Component } from "react";
+import { deleteMessage } from "../../redux/deleteMessage";
 
 class MessageCard extends Component {
+  handleDelete = (event, id) => {
+    this.props.deleteMessage(event, id);
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -45,10 +50,12 @@ class MessageCard extends Component {
               <div id="dateAndTimeHolder">
                 <span>{this.props.dateCreated}</span>
                 <span>{this.props.timeCreated}</span>
-                
-                
               </div>
               <div id="messageHolder">{this.props.text}</div>
+                {this.props.username===this.props.user&&
+        <Button  style={{ backgroundColor: "white", width: "25%", height: "45px", position: "absolute", bottom: "5%", right: "10px" }}
+        onClick={event=>this.handleDelete(event, this.props.id)}
+        >delete</Button>}
             </CardContent>
           </Card>
         </div>
@@ -63,5 +70,5 @@ export default connect(
     error: state.messagefeed.error,
     user: state.auth.login.result.username
   }),
-  { messagefeed, login, handleLike, handleUnlike }
+  { messagefeed, login, handleLike, handleUnlike, deleteMessage }
 )(MessageCard);
