@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -7,7 +6,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
-import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
@@ -23,57 +21,65 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 
 import "./UserCard.css";
+import Modal from "@material-ui/core/Modal"
+import { newProfilePhoto } from "../../redux/newProfilePhoto"
+import { connect } from "react-redux"
+import { domain } from "../../redux/helpers"
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    maxWidth: 345,
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: '2',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortes
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-}));
 
-  export default function UserCard(props) {
-    const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
-    const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = event => {
-    if (event.currentTarget.id === "btnYes") {
-      props.deleteuser()
-    }
-    setOpen(false);
-  };
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
-  
-    let hasImage = false;
-    //let hasBio = false;
-    if (props.pictureLocation !== null)  hasImage=true;
+class UserCard extends React.Component {
+state = {
+  expanded: false,
+  photomodal: false,
+  file: "",
+}
+
+
+handleExpandClick = () => {
+  const newState = !this.state.expanded
+    this.setState({expanded: newState})
+  };
+handleToggleModal = () => {
+  const newState = !this.state.photomodal
+    this.setState({photomodal: newState})
+  }
+handleGetPhoto = (event) => {
+  const newState = event.target.files[0]
+  this.setState({file: newState})
+}
+handleUploadPhoto = (event) => {
+  const data = new FormData()
+  data.append("picture",this.state.file)
+  console.log(this.state)
+  console.log(data)
+  this.props.newProfilePhoto(event, data)
+  this.handleToggleModal()
+}
+    render() {
     return (
-      <Card className={classes.root} id = "userCardSizer">
+      <Card id = "userCardSizer">
         <CardActionArea>
+          {this.props.pictureLocation === null && 
           <CardMedia
             component="img"
             alt="User Image"
             height="260"
-            image={hasImage ? `${props.pictureLocation }` : "https://pngimage.net/wp-content/uploads/2018/05/default-user-png-2.png"}
+            image="https://pngimage.net/wp-content/uploads/2018/05/default-user-png-2.png"
             title="Profile Picture"
-          />
+          />}
+
+{this.props.pictureLocation !== null && 
+          <CardMedia
+            component="img"
+            alt="User Image"
+            height="260"
+            image={domain + this.props.pictureLocation}
+            title="Profile Picture"
+          />}
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {props.displayName} 
+              {this.props.displayName} 
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               
@@ -83,11 +89,11 @@ const useStyles = makeStyles(theme => ({
           <CardActions>
 
           Edit Profile<IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
+          // className={clsx(classes.expand, {
+          //   [classes.expandOpen]: expanded,
+          // })}
+          onClick={this.handleExpandClick}
+          aria-expanded={this.state.expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
@@ -96,46 +102,44 @@ const useStyles = makeStyles(theme => ({
         
           Delete User
         </Button>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Delete user account?"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              You are about to delete {props.username} account. Are you sure you
-              want to do this?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary" autoFocus id="btnNo">
-              No
+        <Button onClick = {this.handleToggleModal}>
+            Upload Photo
+          </Button>
+        <Modal style = {{backgroundColor: "white"}}open = {this.state.photomodal}>
+          <div>
+          <Button onClick = {this.handleUploadPhoto}>
+            Upload Photo
             </Button>
-            <Button onClick={handleClose} color="primary"  id="btnYes">
-              Yes
-            </Button>
-          </DialogActions>
-        </Dialog>
+            
+          <form>
+            <input type = "file" name = "photo" onChange = {this.handleGetPhoto}>
+            </input>
+            </form>
+            <Button onClick = {this.handleToggleModal}>    
+              Cancel
+              </Button>
+            </div>
+            
+          </Modal>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
       <CardContent>
         <UpdateUsers 
-          username = {props.username}
-          displayName = {props.displayName}
-          about = {props.bio}
-          password = {props.password}
-          googlePassword = {props.googlePassword}
+          username = {this.props.username}
+          displayName = {this.props.displayName}
+          about = {this.props.bio}
+          password = {this.props.password}
+          googlePassword = {this.props.googlePassword}
         />
       </CardContent>
     </Collapse>
           </Card>
   );
+            
+}
 }
 
+export default connect(null, {newProfilePhoto})(UserCard)
 
 
 

@@ -8,6 +8,8 @@ import { registrationReducer } from "./registration/registration";
 import { messageFeedReducers} from "./messages"
 import { likeReducers } from "./likes"
 import { googleReducer } from "./googlelogcheck"
+import { deleteMessageReducers } from "./deleteMessage"
+import { changeProfilePictureReducer } from "./newProfilePhoto"
 
 
 export * from "./auth";
@@ -25,7 +27,8 @@ export const store = configureStore({
     messagefeed: combineReducers(messageFeedReducers),
     likes: combineReducers(likeReducers),
     googlecheck: combineReducers(googleReducer),
-    
+    deletemessage: combineReducers(deleteMessageReducers),
+    editphoto: combineReducers(changeProfilePictureReducer)
   },
   preloadedState: {},
   devTools: process.env.NODE_ENV !== "production"

@@ -4,6 +4,7 @@ import MessageCard from "./components/MessageCard"
 import {messagefeed} from "../redux/messages"
 import { Menu } from "./components";
 import { userIsAuthenticated } from "./HOCs/";
+import PostMessages from "./components/PostMessages"
 
 
 
@@ -20,6 +21,7 @@ class MessageFeed extends React.Component {
             <>
                 <Menu isAuthenticated={this.props.isAuthenticated}/>
                 <h2>Message Feed</h2>
+                <PostMessages></PostMessages>
                 {this.props.result.map(message =>(
                     
                     <MessageCard
@@ -27,7 +29,7 @@ class MessageFeed extends React.Component {
                     text={message.text}
                     id = {message.id}
                     likes = {message.likes.length}
-                    dateCreated = {message.createdAt.split("").splice(0, 10).join("")}
+                      dateCreated = {message.createdAt.split("").splice(0, 10).join("")}
                     timeCreated = {message.createdAt.split("").splice(11, 5).join("")}
 
                     >
