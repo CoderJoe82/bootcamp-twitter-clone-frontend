@@ -8,7 +8,8 @@ import {
     createActions,
     createReducer
   } from "./helpers";
-  import {login} from "./auth"
+  import {login, logout} from "./auth"
+
 
 const url = domain + "/users";
 
@@ -63,6 +64,29 @@ export const updateuser = userData => (dispatch, getState) => {
     })
     .catch (err => Promise.reject (dispatch(UPDATEUSER.FAIL(err))));
 };
+
+const DELETEUSER = createActions("deleteuser");
+export const deleteuser = () => (dispatch, getState)=> {
+    dispatch(DELETEUSER.START());
+    const token = getState().auth.login.result.token
+    const username = getState().auth.login.result.username
+    dispatch(logout())
+    return fetch (url + `/${username}`, {
+        method: "DELETE",
+        headers: {Authorization: "Bearer " + token, ...jsonHeaders},
+        
+    })
+    .then(handleJsonResponse)
+    .then(result =>{
+        dispatch (DELETEUSER.SUCCESS(result))
+        
+    })
+    .catch (err => Promise.reject (dispatch(DELETEUSER.FAIL(err))))
+};
+
+
+
+
 export const reducers = {
     signup: createReducer(getInitStateFromStorage("signup", asyncInitialState), {
         ...asyncCases(SIGNUP),
@@ -74,5 +98,8 @@ export const reducers = {
     }),
     updateuser: createReducer(getInitStateFromStorage("updateuser",asyncInitialState),{
         ...asyncCases(UPDATEUSER),
+    }),
+    deleteuser: createReducer(getInitStateFromStorage("deleteuser",asyncInitialState),{
+        ...asyncCases(DELETEUSER)
     })
 };

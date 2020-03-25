@@ -10,6 +10,16 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import UpdateUsers from "./UpdateUsers";
+//import DeleteUsers from "./DeleteUsers";
+import "./UserCard.css"
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
+
 import "./UserCard.css";
 import Modal from "@material-ui/core/Modal"
 import { newProfilePhoto } from "../../redux/newProfilePhoto"
@@ -88,8 +98,8 @@ handleUploadPhoto = (event) => {
         >
           <ExpandMoreIcon />
         </IconButton>
-        <Button size = "small" color ="primary"
-        >
+        <Button size = "small" color ="primary" onClick = {handleClickOpen}>
+        
           Delete User
         </Button>
         <Button onClick = {this.handleToggleModal}>
