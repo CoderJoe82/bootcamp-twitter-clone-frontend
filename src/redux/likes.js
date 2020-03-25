@@ -9,7 +9,6 @@ import {
   createActions,
   createReducer
 } from "./helpers";
-// import { GetMessage } from "./GetMessages";
 import { messagefeed } from "./messages"
 const url = domain;
 const HANDLELIKE = createActions("handLike");

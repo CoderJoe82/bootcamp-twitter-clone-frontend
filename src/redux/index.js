@@ -7,6 +7,8 @@ import { reducers as usersReducers } from "./users"
 import { registrationReducer } from "./registration/registration";
 import { messageFeedReducers} from "./messages"
 import { likeReducers } from "./likes"
+import { googleReducer } from "./googlelogcheck"
+
 
 export * from "./auth";
 export * from "./users";
@@ -21,7 +23,9 @@ export const store = configureStore({
     registration: combineReducers(registrationReducer),
     users: combineReducers(usersReducers),
     messagefeed: combineReducers(messageFeedReducers),
-    likes: combineReducers(likeReducers)
+    likes: combineReducers(likeReducers),
+    googlecheck: combineReducers(googleReducer),
+    
   },
   preloadedState: {},
   devTools: process.env.NODE_ENV !== "production"

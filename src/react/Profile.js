@@ -12,11 +12,11 @@ import {getuser} from "../redux";
 import {connect} from "react-redux"
 import UserCard from "./components/UserCard";
 import {deleteuser} from "../redux";
+import { google } from "../redux/googlelogcheck"
 
 
 class Profile extends React.Component {
 componentDidMount (){
-  console.log(this.props.match.params.username)
   this.props.getuser(this.props.match.params.username);
 };
 
@@ -24,7 +24,6 @@ handleDeleteUser = () => {
   this.props.deleteuser();
 }
   render() {
-    // const {result } =this.props
     if(this.props.result === null){
       return(<div></div>)
     }
@@ -32,19 +31,16 @@ handleDeleteUser = () => {
       <React.Fragment>
         <Menu isAuthenticated={this.props.isAuthenticated} />
         <div id="expansionDiv">
-          <ExpansionPanel style={{ marginBottom: "5%", backgroundImage: `url(${process.env.PUBLIC_URL + "/images/aboutMeBanner.jpg"})`, backgroundSize: "cover" }}>
+          <ExpansionPanel style={{ marginBottom: "5%", color: "white", backgroundImage: `url(${process.env.PUBLIC_URL + "/images/aboutMeBanner.jpg"})`, backgroundSize: "cover" }}>
             <ExpansionPanelSummary style = {{height: "125px"}}/>
             <ExpansionPanelDetails style = {{height: "100px"}}>
-            <Button style={{position: "absolute", backgroundColor: "white", top: "13%", left: "8%"}}>Edit</Button>
               <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
+                <span>{this.props.result.user.about}</span>
                 <br />
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>
-          <ExpansionPanel style = {{marginBottom: "5%", backgroundImage: `url(${process.env.PUBLIC_URL + "/images/middleBanner.jpg"})`, backgroundSize: "cover"}}>
+          <ExpansionPanel style = {{marginBottom: "5%", color: "white", backgroundImage: `url(${process.env.PUBLIC_URL + "/images/middleBanner.jpg"})`, backgroundSize: "cover"}}>
           <ExpansionPanelSummary style = {{height: "125px"}}/>
             <ExpansionPanelDetails style = {{height: "100px"}}>
           <Button style={{position: "absolute", backgroundColor: "white", top: "13%", left: "8%"}}>Edit</Button>
@@ -58,7 +54,7 @@ handleDeleteUser = () => {
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>
-          <ExpansionPanel style={{ marginBottom: "5%", backgroundImage: `url(${process.env.PUBLIC_URL + "/images/bottomBanner.jpg"})`, backgroundRepeat: "cover", backgroundSize: "100%"    }}>
+          <ExpansionPanel style={{ marginBottom: "5%", color: "white", backgroundImage: `url(${process.env.PUBLIC_URL + "/images/bottomBanner.jpg"})`, backgroundRepeat: "cover", backgroundSize: "100%"    }}>
           <ExpansionPanelSummary style = {{height: "125px"}}/>
             <ExpansionPanelDetails style = {{height: "100px"}}>
             <Button style={{position: "absolute", backgroundColor: "white", top: "11%", right: "8%"}}>Edit</Button>
@@ -78,6 +74,7 @@ handleDeleteUser = () => {
             pictureLocation = {this.props.result.user.pictureLocation}
             bio = {this.props.result.user.about}
             deleteuser = {this.handleDeleteUser}
+            googlePassword = {this.props.google}
             />
             
           </div>
@@ -90,8 +87,10 @@ export default  connect (
   state =>({
     result: state.users.getuser.result, 
     loading: state.users.getuser.loading, 
-    error: state.users.getuser.error
+    error: state.users.getuser.error,
+    google: state.googlecheck.google.result
   }),
-  {getuser, deleteuser})(userIsAuthenticated(Profile));
+  {getuser, deleteuser, google})(userIsAuthenticated(Profile));
    
+  
   

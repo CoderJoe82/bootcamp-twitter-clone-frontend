@@ -22,6 +22,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 
+import "./UserCard.css";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     transform: 'rotate(0deg)',
     marginLeft: '2',
     transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
+      duration: theme.transitions.duration.shortes
     }),
   },
   expandOpen: {
@@ -59,11 +60,7 @@ const useStyles = makeStyles(theme => ({
   
     let hasImage = false;
     //let hasBio = false;
-    let defaultBio = "No about info setup"
     if (props.pictureLocation !== null)  hasImage=true;
-    if (props.bio !== "") {
-      defaultBio = props.bio
-     };
     return (
       <Card className={classes.root} id = "userCardSizer">
         <CardActionArea>
@@ -79,7 +76,7 @@ const useStyles = makeStyles(theme => ({
               {props.displayName} 
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {defaultBio}
+              
             </Typography>
           </CardContent>  
           </CardActionArea>
@@ -96,6 +93,7 @@ const useStyles = makeStyles(theme => ({
           <ExpandMoreIcon />
         </IconButton>
         <Button size = "small" color ="primary" onClick = {handleClickOpen}>
+        
           Delete User
         </Button>
         <Dialog
@@ -130,6 +128,7 @@ const useStyles = makeStyles(theme => ({
           displayName = {props.displayName}
           about = {props.bio}
           password = {props.password}
+          googlePassword = {props.googlePassword}
         />
       </CardContent>
     </Collapse>

@@ -21,10 +21,16 @@ class MessageFeed extends React.Component {
                 <Menu isAuthenticated={this.props.isAuthenticated}/>
                 <h2>Message Feed</h2>
                 {this.props.result.map(message =>(
+                    
                     <MessageCard
                     username={message.username}
-                    text={message.text}>
+                    text={message.text}
+                    id = {message.id}
+                    likes = {message.likes.length}
+                    dateCreated = {message.createdAt.split("").splice(0, 10).join("")}
+                    timeCreated = {message.createdAt.split("").splice(11, 5).join("")}
 
+                    >
                     </MessageCard>
                 ))}
                 
