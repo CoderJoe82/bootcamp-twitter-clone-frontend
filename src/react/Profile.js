@@ -11,15 +11,14 @@ import './profile.css'
 import {getuser} from "../redux";
 import {connect} from "react-redux"
 import UserCard from "./components/UserCard";
+import { google } from "../redux/googlelogcheck"
 
 
 class Profile extends React.Component {
 componentDidMount (){
-  console.log(this.props.match.params.username)
   this.props.getuser(this.props.match.params.username);
 };
   render() {
-    // const {result } =this.props
     if(this.props.result === null){
       return(<div></div>)
     }
@@ -27,19 +26,16 @@ componentDidMount (){
       <React.Fragment>
         <Menu isAuthenticated={this.props.isAuthenticated} />
         <div id="expansionDiv">
-          <ExpansionPanel style={{ marginBottom: "5%", backgroundImage: `url(${process.env.PUBLIC_URL + "/images/aboutMeBanner.jpg"})`, backgroundSize: "cover" }}>
+          <ExpansionPanel style={{ marginBottom: "5%", color: "white", backgroundImage: `url(${process.env.PUBLIC_URL + "/images/aboutMeBanner.jpg"})`, backgroundSize: "cover" }}>
             <ExpansionPanelSummary style = {{height: "125px"}}/>
             <ExpansionPanelDetails style = {{height: "100px"}}>
-            <Button style={{position: "absolute", backgroundColor: "white", top: "13%", left: "8%"}}>Edit</Button>
               <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
+                <span>{this.props.result.user.about}</span>
                 <br />
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>
-          <ExpansionPanel style = {{marginBottom: "5%", backgroundImage: `url(${process.env.PUBLIC_URL + "/images/middleBanner.jpg"})`, backgroundSize: "cover"}}>
+          <ExpansionPanel style = {{marginBottom: "5%", color: "white", backgroundImage: `url(${process.env.PUBLIC_URL + "/images/middleBanner.jpg"})`, backgroundSize: "cover"}}>
           <ExpansionPanelSummary style = {{height: "125px"}}/>
             <ExpansionPanelDetails style = {{height: "100px"}}>
           <Button style={{position: "absolute", backgroundColor: "white", top: "13%", left: "8%"}}>Edit</Button>
@@ -53,7 +49,7 @@ componentDidMount (){
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>
-          <ExpansionPanel style={{ marginBottom: "5%", backgroundImage: `url(${process.env.PUBLIC_URL + "/images/bottomBanner.jpg"})`, backgroundRepeat: "cover", backgroundSize: "100%"    }}>
+          <ExpansionPanel style={{ marginBottom: "5%", color: "white", backgroundImage: `url(${process.env.PUBLIC_URL + "/images/bottomBanner.jpg"})`, backgroundRepeat: "cover", backgroundSize: "100%"    }}>
           <ExpansionPanelSummary style = {{height: "125px"}}/>
             <ExpansionPanelDetails style = {{height: "100px"}}>
             <Button style={{position: "absolute", backgroundColor: "white", top: "11%", right: "8%"}}>Edit</Button>
@@ -72,6 +68,7 @@ componentDidMount (){
             displayName = {this.props.result.user.displayName}
             pictureLocation = {this.props.result.user.pictureLocation}
             bio = {this.props.result.user.about}
+            googlePassword = {this.props.google}
             />
             
           </div>
@@ -84,6 +81,7 @@ export default  connect (
   state =>({
     result: state.users.getuser.result, 
     loading: state.users.getuser.loading, 
-    error: state.users.getuser.error
+    error: state.users.getuser.error,
+    google: state.googlecheck.google.result
   }),
-  {getuser})(userIsAuthenticated(Profile));
+  {getuser, google})(userIsAuthenticated(Profile));

@@ -12,7 +12,7 @@ import {
   export const messagefeed =()=> dispatch =>{
       dispatch(MESSAGEFEED.START());
 
-      return fetch(url+"/messages?limit=25&offset=0")
+      return fetch(url+"/messages?limit=50&offset=0")
   
       .then(handleJsonResponse)
       .then(result => {

@@ -12,9 +12,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import UpdateUsers from "./UpdateUsers";
-import "./UserCard.css"
-
-
+import "./UserCard.css";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     transform: 'rotate(0deg)',
     marginLeft: '2',
     transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
+      duration: theme.transitions.duration.shortes
     }),
   },
   expandOpen: {
@@ -40,11 +38,7 @@ const useStyles = makeStyles(theme => ({
   };
     let hasImage = false;
     //let hasBio = false;
-    let defaultBio = "No about info setup"
     if (props.pictureLocation !== null)  hasImage=true;
-    if (props.bio !== "") {
-      defaultBio = props.bio
-     };
     return (
       <Card className={classes.root} id = "userCardSizer">
         <CardActionArea>
@@ -60,7 +54,7 @@ const useStyles = makeStyles(theme => ({
               {props.displayName} 
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {defaultBio}
+              
             </Typography>
           </CardContent>  
           </CardActionArea>
@@ -76,7 +70,8 @@ const useStyles = makeStyles(theme => ({
         >
           <ExpandMoreIcon />
         </IconButton>
-        <Button size = "small" color ="primary">
+        <Button size = "small" color ="primary"
+        >
           Delete User
         </Button>
       </CardActions>
@@ -87,6 +82,7 @@ const useStyles = makeStyles(theme => ({
           displayName = {props.displayName}
           about = {props.bio}
           password = {props.password}
+          googlePassword = {props.googlePassword}
         />
       </CardContent>
     </Collapse>

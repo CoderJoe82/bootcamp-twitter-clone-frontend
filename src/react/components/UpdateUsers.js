@@ -8,7 +8,8 @@ import CardActions from '@material-ui/core/CardActions';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {connect} from "react-redux";
-import {updateuser} from "../../redux"
+import {updateuser} from "../../redux";
+import {google} from "../../redux/googlelogcheck"
 
 
   class UpdateUsers extends React.Component {
@@ -17,11 +18,24 @@ import {updateuser} from "../../redux"
           displayName: "",
           about: ""
       }
+     
       handleSubmit = event => {
+        
+        console.log(this.state)
           this.props.updateuser(this.state)
       }
       handleChange = event => {
           this.setState({ [event.target.name]: event.target.value })
+         
+          console.log(this.props.googleStatus)
+          if (this.props.googleStatus !== null) {
+            console.log(this.props.googleStatus)
+            this.setState({
+              password: this.props.googleStatus.password
+            })
+          }
+             
+            
       }
       render (){
 
@@ -40,8 +54,9 @@ import {updateuser} from "../../redux"
                 <form id= "update-user" onSubmit = {this.handleSubmit}>
                     <TextField required id = "displayName" label = "Display Name" variant= "outlined" name = "displayName" defaultValue={this.props.displayName} onChange ={this.handleChange}/>
                     <TextField id = "aboutInfo" label = "About me " variant = "outlined" name = "about" defaultValue = {this.props.about} onChange ={this.handleChange}/>
+                    {this.props.googleStatus === null &&
                     <TextField id = "password" label = "password" name = "password" variant = "outlined" onChange ={this.handleChange}/>
-                </form>
+                    }</form>
             </Typography>
             
           </CardContent>  
@@ -60,7 +75,8 @@ import {updateuser} from "../../redux"
       state => ({
           result: state.users.updateuser.result,
           loading: state.users.updateuser.loading,
-          error: state.users.updateuser.error
+          error: state.users.updateuser.error,
+          googleStatus: state.googlecheck.google.result
       }),
-      { updateuser }) (UpdateUsers)
+      { updateuser, google }) (UpdateUsers)
   
