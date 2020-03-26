@@ -74,7 +74,7 @@ componentDidMount (){
             bio = {this.props.result.user.about}
             googlePassword = {this.props.google}
             />
-            <div style = {{position: "absolute", left: "60px", bottom: "21px"}}>
+            <div style = {{left: "60px"}}>
             <GetUserList/>
             </div>
           </div>

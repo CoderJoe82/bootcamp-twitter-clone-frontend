@@ -41,6 +41,7 @@ class GetUserList extends React.Component{
       }
     const flatProps = { options: this.props.result.map(user => user.username)}
     return (
+
         <Card className={classes.root} style={{width: '242px', height: "200px"}}>
           <Typography component="div" style = {{fontSize: "22px" }}>
             Lookup user
