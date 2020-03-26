@@ -10,6 +10,17 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import UpdateUsers from "./UpdateUsers";
+
+import "./UserCard.css"
+import {deleteuser} from "../../redux";
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
+
 import "./UserCard.css";
 import Modal from "@material-ui/core/Modal"
 import { newProfilePhoto } from "../../redux/newProfilePhoto"
@@ -23,7 +34,21 @@ state = {
   expanded: false,
   photomodal: false,
   file: "",
+  open: false
 }
+
+  handleClickOpen = () => {
+    const newState = !this.state.open
+    this.setState({open: newState})
+  };
+  handleClose = event => {
+    if (event.currentTarget.id === "btnYes") {
+      deleteuser()
+    }
+    const newState = !this.state.open
+    this.setState({open: newState})
+  };
+
 
 
 handleExpandClick = () => {
@@ -85,13 +110,38 @@ handleUploadPhoto = (event) => {
         >
           <ExpandMoreIcon />
         </IconButton>
-        <Button size = "small" color ="primary"
-        >
-          Delete User
+        <Button size = "small" color ="primary" onClick = {this.handleClickOpen}>
+                  Delete User
         </Button>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Delete user account?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              You are about to delete {this.props.username} account. Are you sure you
+              want to do this?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary" autoFocus id="btnNo">
+              No
+            </Button>
+            <Button onClick={this.handleClose} color="primary"  id="btnYes">
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
+
         <Button onClick = {this.handleToggleModal}>
             Upload Photo
           </Button>
+          
         <Modal style = {{backgroundColor: "white"}}open = {this.state.photomodal}>
           <div>
           <Button onClick = {this.handleUploadPhoto}>
@@ -108,7 +158,7 @@ handleUploadPhoto = (event) => {
             </div>
             
           </Modal>
-      </CardActions>
+          </CardActions>
       <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
       <CardContent>
         <UpdateUsers 

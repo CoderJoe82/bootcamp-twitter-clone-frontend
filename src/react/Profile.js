@@ -11,12 +11,15 @@ import './profile.css'
 import {getuser} from "../redux";
 import {connect} from "react-redux"
 import UserCard from "./components/UserCard";
+import GetUserList from "./components/GetUserList";
+
 import { google } from "../redux/googlelogcheck"
 
 
 class Profile extends React.Component {
   
 componentDidMount (){
+  console.log(this.props.match.params.username)
   this.props.getuser(this.props.match.params.username);
 };
   render() {
@@ -71,6 +74,7 @@ componentDidMount (){
             bio = {this.props.result.user.about}
             googlePassword = {this.props.google}
             />
+            <GetUserList/>
             
           </div>
       </React.Fragment>
@@ -86,3 +90,6 @@ export default  connect (
     google: state.googlecheck.google.result
   }),
   {getuser, google})(userIsAuthenticated(Profile));
+   
+  
+  
