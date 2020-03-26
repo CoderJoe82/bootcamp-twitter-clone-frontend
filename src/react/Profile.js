@@ -53,7 +53,7 @@ componentDidMount (){
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>
-          <ExpansionPanel style={{ marginBottom: "5%", color: "white", backgroundImage: `url(${process.env.PUBLIC_URL + "/images/bottomBanner.jpg"})`, backgroundRepeat: "cover", backgroundSize: "100%"    }}>
+          <ExpansionPanel style={{ marginBottom: "5%", color: "white", backgroundImage: `url(${process.env.PUBLIC_URL + "/images/bottombanner.jpg"})`, backgroundRepeat: "cover", backgroundSize: "100%"    }}>
           <ExpansionPanelSummary style = {{height: "125px"}}/>
             <ExpansionPanelDetails style = {{height: "100px"}}>
             <Button style={{position: "absolute", backgroundColor: "white", top: "11%", right: "8%"}}>Edit</Button>
