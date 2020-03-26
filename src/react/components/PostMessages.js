@@ -30,20 +30,27 @@ class PostMessages extends React.Component {
         const {error} = this.props;
         return(
             <>
-            <Card className ={classes.root} variant="outlined">
-            <Typography component="div" style={{ backgroundColor: '#CFE8FC', height: '30px', width: '600px' }} >
+            <Card className ={classes.root} variant="outlined"
+            style = {{width: "45%", margin: "0 auto", marginBottom: "20px", backgroundColor: "#09440e", color: "white"}}
+            >
+            <Typography component="div"
+            style = {{marginTop: "10px", marginLeft: "15px"}}
+            >
                 Post Message </Typography>
                 <CardContent>
                     <form className={classes.root} autoComplete="off" name="newMessageForm">
-                        <TextField  id ="messageText" name="text" label="New Message" placeholder={this.state.text} variant="outlined" onChange={this.handleChange}/>
+                        <TextField  id ="messageText" name="text" label="New Message" placeholder={this.state.text} variant="outlined" onChange={this.handleChange}
+                        style = {{backgroundColor: "white", color: "#09440e", width: "100%", marginBottom: "4%"}}
+                        />
                         </form>
                         <Button
                             type="submit"
-                            fullWidth
+                            fullWidth   
                             variant="contained"
                             color="primary"
                             className={classes.submit}
                             onClick={this.handleCreate}
+                            style = {{backgroundColor: "white", color: "#09440e"}}
                         >
                             Post Message
                         </Button>
