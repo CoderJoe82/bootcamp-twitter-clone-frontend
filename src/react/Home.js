@@ -20,7 +20,7 @@ class Home extends React.Component {
               alt="militarybranches"
             />
 
-            <p>Coding For Veterans</p>
+            <p>Codings For Veterans</p>
             <LoginForm />
             <NewKidsOnTheBlock />
           </div>
