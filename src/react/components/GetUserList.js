@@ -8,8 +8,8 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import { connect } from "react-redux"
-import { getuserlist, getuser} from "../../redux"
+import { connect } from "react-redux";
+import { getuserlist, getuser} from "../../redux";
 class GetUserList extends React.Component{
     state = {username: ""}
     componentDidMount() {
@@ -41,11 +41,11 @@ class GetUserList extends React.Component{
       }
     const flatProps = { options: this.props.result.map(user => user.username)}
     return (
-        <Card className={classes.root} style={{width: '200px'}}>
-          <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '30px', width: '200px' }}>
+        <Card className={classes.root} style={{width: '242px', height: "200px"}}>
+          <Typography component="div" style = {{fontSize: "22px" }}>
             Lookup user
           </Typography>
-          <CardActionArea>
+          <CardActionArea style = {{height: "70px"}}>
             <CardContent>
             <Autocomplete
                 {...flatProps}
@@ -57,12 +57,14 @@ class GetUserList extends React.Component{
                                           label="User List" 
                                           margin="normal"  
                                           onSelect={this.handleChange}
+                                          style = {{marginTop: "10px"}}
                                         />}
             />
             </CardContent>
           </CardActionArea>
           <CardActions disableSpacing>
-            <Button id="lookupUser" onClick={this.handleLookup}>Lookup</Button> 
+            <Button id="lookupUser" onClick={this.handleLookup}
+            >Lookup</Button> 
           </CardActions>
         </Card>
       );

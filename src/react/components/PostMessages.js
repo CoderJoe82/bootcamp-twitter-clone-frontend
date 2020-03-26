@@ -31,7 +31,7 @@ class PostMessages extends React.Component {
         return(
             <>
             <Card className ={classes.root} variant="outlined"
-            style = {{width: "45%", margin: "0 auto", marginBottom: "20px", backgroundColor: "#09440e", color: "white"}}
+            style = {{width: "45%", margin: "0 auto", marginBottom: "20px", marginTop: "-48px", backgroundColor: "#09440e", color: "white"}}
             >
             <Typography component="div"
             style = {{marginTop: "10px", marginLeft: "15px"}}
