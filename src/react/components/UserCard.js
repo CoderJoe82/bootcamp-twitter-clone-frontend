@@ -79,9 +79,6 @@ handleUploadPhoto = (event) => {
           <CardActions>
 
           Edit Profile<IconButton
-          // className={clsx(classes.expand, {
-          //   [classes.expandOpen]: expanded,
-          // })}
           onClick={this.handleExpandClick}
           aria-expanded={this.state.expanded}
           aria-label="show more"
@@ -121,6 +118,7 @@ handleUploadPhoto = (event) => {
           password = {this.props.password}
           googlePassword = {this.props.googlePassword}
         />
+        {console.log(this.props.username)}
       </CardContent>
     </Collapse>
           </Card>

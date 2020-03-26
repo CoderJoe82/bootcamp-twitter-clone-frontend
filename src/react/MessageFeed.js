@@ -23,14 +23,16 @@ class MessageFeed extends React.Component {
                 <h2>Message Feed</h2>
                 <PostMessages></PostMessages>
                 {this.props.result.map(message =>(
-                    
+                  
                     <MessageCard
                     username={message.username}
                     text={message.text}
                     id = {message.id}
+                    likesarray = {message.likes}
                     likes = {message.likes.length}
                       dateCreated = {message.createdAt.split("").splice(0, 10).join("")}
                     timeCreated = {message.createdAt.split("").splice(11, 5).join("")}
+                    
 
                     >
                     </MessageCard>

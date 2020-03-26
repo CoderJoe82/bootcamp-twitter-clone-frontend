@@ -7,7 +7,7 @@ import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
 import CardContent from "@material-ui/core/CardContent";
 import { GoogleLogin } from "react-google-login";
-import { google } from "../../redux/googlelogcheck"
+import { google } from "../../redux/googlelogcheck";
 
 class LoginForm extends React.Component {
   state = { username: "", password: "" };
@@ -32,8 +32,8 @@ class LoginForm extends React.Component {
     const googleStuff = {
       value: true,
       password: response.profileObj.googleId.slice(12)
-    }
-    this.props.google(googleStuff)
+    };
+    this.props.google(googleStuff);
     this.props.login(googleLogInData);
   };
 
@@ -77,7 +77,9 @@ class LoginForm extends React.Component {
                 >
                   Login
                 </Button>
-                <div id = "gButtonHolder">
+                <div
+                  style = {{marginLeft: "9px"}}
+                >
                   <GoogleLogin
                     clientId="793749246714-3cv23v5p4nmh712iatum1qo54n1h14td.apps.googleusercontent.com"
                     buttonText="Login"
